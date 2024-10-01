@@ -1,4 +1,6 @@
-''' My Calculator Test'''
+'''My Calc'''
 from app.main import addition
+
 def test_addition():
-	assert addition(1,1) == 2
+    '''Add function'''
+    assert addition(1,1) == 2
