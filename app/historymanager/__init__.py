@@ -1,4 +1,4 @@
-class HistoryManager:
+class historymanager:
     def __init__(self):
         self.history = []
 

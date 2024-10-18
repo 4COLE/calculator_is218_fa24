@@ -1,23 +1,16 @@
-from app.calculation import Addition, Subtraction, Multiplication, Division
-from app.historymanager import HistoryManager
+from app.calculation import BasicCalculation
+from app.historymanager import historymanager
 
-class Calculator:
+class calculator:
     def __init__(self):
-        self.history_manager = HistoryManager()
-        self.operations = {
-            'add': Addition(),
-            'subtract': Subtraction(),
-            'multiply': Multiplication(),
-            'divide': Division()
-        }
+        self.history_manager = historymanager()
+        self.basic_calc = BasicCalculation()
 
     def perform_calculation(self, a, b, operation):
-        if operation in self.operations:
-            result = self.operations[operation].calculate(a, b)
+        result = self.basic_calc.calculate(a, b, operation)
+        if isinstance(result, (int, float)):
             self.history_manager.add_to_history(operation, a, b, result)
-            return result
-        else:
-            raise ValueError("Invalid operation")
+        return result
 
     def get_history(self):
         return self.history_manager.show_history()
