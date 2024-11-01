@@ -21,3 +21,4 @@ def modulo(a: float, b: float) -> Union[float, str]:
 
 def power(a: float, b: float) -> float:
     return a ** b
+

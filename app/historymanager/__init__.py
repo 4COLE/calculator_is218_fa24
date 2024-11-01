@@ -1,13 +1,24 @@
+"""
+History manager: manages history of calculations and undo operations.
+"""
+from typing import Union
+
 class historymanager:
+    """Class to manage history of calculations."""
     def __init__(self):
+        """Initialize the history manager with an empty history."""
         self.history = []
 
-    def add_to_history(self, operation, a, b, result):
-        self.history.append(f"{a} {operation} {b} = {result}")
+    def add_to_history(self, entry: str):
+        """Add a calculation to the history."""
+        self.history.append(entry)
 
-    def undo_last(self):
+    def get_history(self) -> list:
+        """Return the history of calculations."""
+        return self.history
+
+    def undo_last(self) -> Union[str, None]:
+        """Undo the last calculation."""
         if self.history:
-            self.history.pop()
-
-    def show_history(self):
-        return "\n".join(self.history)
+            return self.history.pop()
+        return None

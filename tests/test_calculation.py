@@ -2,20 +2,12 @@
 Test module for the BasicCalculation class.
 
 This module contains tests to validate the basic operations like addition, subtraction,
-multiplication, division, modulo, and power, as well as error handling for division by zero
-and invalid operations.
+multiplication, division, modulo, and power, as well as error handling for division by zero,
+invalid operations, and unexpected exceptions.
 """
 
 import pytest
 from app.calculation import BasicCalculation
-
-# Test class initialization
-def test_basic_calculation_initialization():
-    """
-    Test that the BasicCalculation class can be instantiated.
-    """
-    calc = BasicCalculation()
-    assert isinstance(calc, BasicCalculation)
 
 # Test valid calculations
 @pytest.mark.parametrize("a, b, operation, expected", [
@@ -33,11 +25,10 @@ def test_basic_calculation_valid(a, b, operation, expected):
     calc = BasicCalculation()
     assert calc.calculate(a, b, operation) == expected
 
-# Test division by zero in calculation class
+# Test division and modulo by zero
 @pytest.mark.parametrize("a, b, operation", [
     (10, 0, 'divide'),
-    (5, 0, 'divide'),
-    (10, 0, 'modulo')
+    (5, 0, 'modulo')
 ])
 def test_calculation_division_by_zero(a, b, operation):
     """
@@ -87,3 +78,31 @@ def test_edge_cases(a, b, operation, expected):
     """
     calc = BasicCalculation()
     assert calc.calculate(a, b, operation) == expected
+
+# Test unexpected exceptions by passing invalid input
+@pytest.mark.parametrize("a, b, operation", [
+    (None, 3, 'add'),         # None as an operand
+    (2, "string", 'multiply') # Non-numeric string as an operand
+])
+def test_calculation_unexpected_exception(a, b, operation):
+    """
+    Test that unexpected input results in an error message.
+    """
+    calc = BasicCalculation()
+    result = calc.calculate(a, b, operation)
+    # Check that result is a string message and not a numeric value
+    assert isinstance(result, str) and not result.isdigit()
+# Test division and modulo by zero to trigger the return message
+@pytest.mark.parametrize("a, b, operation, expected_message", [
+    (10, 0, 'divide', "Cannot divide by zero."),
+    (5, 0, 'modulo', "Cannot modulo by zero.")
+])
+def test_division_and_modulo_by_zero_error(a, b, operation, expected_message):
+    """
+    Test that division or modulo by zero returns the appropriate error message.
+    """
+    calc = BasicCalculation()
+    result = calc.calculate(a, b, operation)
+    # Assert that the returned message matches the expected error message
+    assert result == expected_message
+    
