@@ -3,7 +3,7 @@ Calculation module: abstract base class for calculator operations.
 """
 from abc import ABC, abstractmethod
 from typing import Union
-from app.operations import addition, subtraction, multiplication, division
+from app.operations import addition, modulo, power, subtraction, multiplication, division
 
 class Calculation(ABC):
     """Abstract base class for calculator operations."""
@@ -16,16 +16,17 @@ class BasicCalculation(Calculation):
     """Concrete class for basic calculations."""
     def calculate(self, a: float, b: float, operation: str) -> Union[float, str]:
         """Perform the operation based on the input and handle errors."""
-        try:
-            if operation == 'add':
-                return addition(a, b)
-            elif operation == 'subtract':
-                return subtraction(a, b)
-            elif operation == 'multiply':
-                return multiplication(a, b)
-            elif operation == 'divide':
-                return division(a, b)
-            else:
-                return "Invalid operation."
-        except ValueError as e:
-            return str(e)
+        if operation == 'add':
+            return addition(a, b)
+        elif operation == 'subtract':
+            return subtraction(a, b)
+        elif operation == 'multiply':
+            return multiplication(a, b)
+        elif operation == 'divide':
+            return division(a, b)
+        elif operation == 'modulo':
+            return modulo(a, b)
+        elif operation == 'power':
+            return power(a, b)
+        else:
+            return "Invalid operation."
