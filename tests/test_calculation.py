@@ -9,6 +9,14 @@ and invalid operations.
 import pytest
 from app.calculation import BasicCalculation
 
+# Test class initialization
+def test_basic_calculation_initialization():
+    """
+    Test that the BasicCalculation class can be instantiated.
+    """
+    calc = BasicCalculation()
+    assert isinstance(calc, BasicCalculation)
+
 # Test valid calculations
 @pytest.mark.parametrize("a, b, operation, expected", [
     (1, 1, 'add', 2),
