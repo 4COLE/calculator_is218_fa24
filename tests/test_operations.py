@@ -1,6 +1,6 @@
 ''' My Calculator Test'''
 import pytest
-from app.operations import addition, division, multiplication, subtraction
+from app.operations import addition, division, modulo, multiplication, power, subtraction
 
 
 # Parameterized test for addition
@@ -40,3 +40,38 @@ def test_division_by_zero_exception():
     '''Division function testing that I get the exception divide by zero'''
     with pytest.raises(ZeroDivisionError):
         division(10, 0)
+
+# Test modulo
+@pytest.mark.parametrize("a, b, expected", [
+    (10, 3, 1),
+    (9, 2, 1),
+    (15, 5, 0)
+])
+def test_modulo(a, b, expected):
+    """
+    Test that modulo function returns correct result.
+    """
+    assert modulo(a, b) == expected
+
+# Test modulo by zero
+@pytest.mark.parametrize("a, b", [
+    (10, 0),
+    (5, 0)
+])
+def test_modulo_by_zero(a, b):
+    """
+    Test that modulo-ing by zero returns appropriate error message.
+    """
+    assert modulo(a, b) == "Cannot modulo by zero."
+
+# Test power
+@pytest.mark.parametrize("a, b, expected", [
+    (2, 3, 8),
+    (5, 2, 25),
+    (10, 0, 1)
+])
+def test_power(a, b, expected):
+    """
+    Test that using exponents works as intended.
+    """
+    assert power(a, b) == expected
